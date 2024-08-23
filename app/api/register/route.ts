@@ -1,16 +1,42 @@
 import type { NextRequest } from 'next/server'
 import { getRequestContext } from '@cloudflare/next-on-pages'
+import { argon2id } from 'hash-wasm'
+import { pki, random } from 'node-forge'
 
 export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData()
-  const username = formData.get("username")
-  const crush = formData.get("crush")
-  const password = formData.get("password")
-  const secret = formData.get("secret")
-  const userCrush = username + crush
-  const crushUser = crush + username
+  const username = formData.get("username") as string
+  const crush = formData.get("crush") as string
+  const password = formData.get("password") as string
+  const secret = formData.get("secret") as string
+  const userCrush = username! + crush!
+  const crushUser = crush! + username!
+  const passwordSalt = random.getBytesSync(16)
+  const maxNum = (2 ** 16) - 1
+  const prng = random.createInstance()
+  // Use the user's secret as a seed
+  prng.seedFileSync = () => secret!
+  // Generate the RSA private and public keys using the seed
+  const { privateKey, publicKey } = pki.rsa.generateKeyPair({ bits: 4096, prng, workers: 2 })
+  const usernameEncrypted = publicKey.encrypt(username)
+  const hashedPassword = await argon2id({
+    password: password,
+    salt: passwordSalt,
+    parallelism: 1,
+    iterations: 256,
+    memorySize: 512,
+    hashLength: 32,
+    outputType: 'encoded',
+  })
+  var derivedUserCrushSalt = 1;
+  username.split('').forEach(letter => {
+    derivedUserCrushSalt = derivedUserCrushSalt * letter.charCodeAt() % maxNum
+  })
+  crush.split('').forEach(letter => {
+    derivedUserCrushSalt = derivedUserCrushSalt * letter.charCodeAt() % maxNum
+  })
   // How to hash userCrush and crushUser
   // Idea 1: Hash like passwords (with salt)
   //  Problem: in order to search, would need to iterate over every user in the database. Not feasible
