@@ -31,6 +31,7 @@ export default function Home() {
     </Navbar>
     <Divider className="my-4"/>
     <p>Welcome to the crush matcher!</p>
+    <p>Support me on <Link href="https://ko-fi.com/eshethelichqueen">Ko-Fi</Link></p>
     </main>
   );
 }
