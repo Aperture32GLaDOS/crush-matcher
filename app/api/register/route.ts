@@ -6,6 +6,8 @@ import { pki, random } from 'node-forge'
 export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
+  // TODO: this all takes too much CPU time for the server
+  // See what can be safely done on the client side (i.e. don't allow a pass-the-hash vulnerability)
   const formData = await request.formData()
   const username = formData.get("username") as string
   const crush = formData.get("crush") as string
