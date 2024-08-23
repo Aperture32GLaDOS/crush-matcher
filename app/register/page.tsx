@@ -53,6 +53,7 @@ export default function Register() {
       <Input type="text" name="username" label="Username"/>
       <Input type="text" name="crush" label="Crush's Username"/>
       <Input type="password" name="password" label="Password"/>
+      <Input type="password" name="secret" label="Secret"/>
       <Button type="submit" color="primary">Submit</Button>
     </form>
     </main>

@@ -4,20 +4,27 @@ import { getRequestContext } from '@cloudflare/next-on-pages'
 export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
-  let responseText = 'Hello World'
+  const formData = await request.formData()
+  const username = formData.get("username")
+  const crush = formData.get("crush")
+  const password = formData.get("password")
+  const secret = formData.get("secret")
+  const userCrush = username + crush
+  const crushUser = crush + username
+  // How to hash userCrush and crushUser
+  // Idea 1: Hash like passwords (with salt)
+  //  Problem: in order to search, would need to iterate over every user in the database. Not feasible
+  // Idea 2: No salt
+  //  Problem: if database is leaked, all hashes could be considered broken. Not even worth hashing if using this method.
+  // Idea 3: Encrypt usernames
+  //  Encrypt usernames with a user-stored secret, and use no salt for userCrush or crushUser.
+  //  Problem: most usernames are still common, and so rainbow tables would still be a problem
+  // Final idea: encrypt usernames, and use a derived salt
+  //  The salt could be derived (i.e. by the hash of the length of userCrush, or something similar)
+  //  This is beneficial because the salt can be derived when retrieving the userCrush values from the database, (and therefore allows O(1) retrieval),
+  //  but in the event of a DB breach, no usernames are given away, and therefore no values can be broken!
 
-  // In the edge runtime you can use Bindings that are available in your application
-  // (for more details see:
-  //    - https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site/#use-bindings-in-your-nextjs-application
-  //    - https://developers.cloudflare.com/pages/functions/bindings/
-  // )
-  //
   const DB = getRequestContext().env.DB
-  // KV Example:
-  // const myKv = getRequestContext().env.MY_KV_NAMESPACE
-  // await myKv.put('suffix', ' from a KV store!')
-  // const suffix = await myKv.get('suffix')
-  // responseText += suffix
 
-  return new Response(responseText)
+  return new Response("TODO")
 }

@@ -52,6 +52,7 @@ export default function Register() {
     <form onSubmit={onSubmit} className="flex w-full flex-wrap md:flex-nowrap gap-4">
       <Input type="text" name="username" label="Username"/>
       <Input type="password" name="password" label="Password"/>
+      <Input type="password" name="Secret" label="Secret"/>
       <Button type="submit" color="primary">Log In</Button>
     </form>
     </main>
