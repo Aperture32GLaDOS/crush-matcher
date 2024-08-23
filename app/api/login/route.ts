@@ -3,7 +3,7 @@ import { getRequestContext } from '@cloudflare/next-on-pages'
 
 export const runtime = 'edge'
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   let responseText = 'Hello World'
 
   // In the edge runtime you can use Bindings that are available in your application
