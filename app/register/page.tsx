@@ -13,6 +13,7 @@ import {
 import { Divider } from "@nextui-org/divider"
 import {Input} from "@nextui-org/input";
 import {Button, ButtonGroup} from "@nextui-org/button";
+import { FormEvent } from 'react'
 
 export default function Register() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
