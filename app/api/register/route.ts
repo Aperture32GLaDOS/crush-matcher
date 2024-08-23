@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { getRequestContext } from '@cloudflare/next-on-pages'
-import { argon2id } from 'hash-wasm'
+import { argon2id, sha256 } from 'hash-wasm'
 import { pki, random } from 'node-forge'
 
 export const runtime = 'edge'
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
   const userCrush = username! + crush!
   const crushUser = crush! + username!
   const passwordSalt = random.getBytesSync(16)
-  const maxNum = (2 ** 16) - 1
+  const maxNum = (2 ** 64) - 1
   const prng = random.createInstance()
   // Use the user's secret as a seed
   prng.seedFileSync = () => secret!
@@ -32,10 +32,29 @@ export async function POST(request: NextRequest) {
   })
   var derivedUserCrushSalt = 1;
   username.split('').forEach(letter => {
-    derivedUserCrushSalt = derivedUserCrushSalt * letter.charCodeAt() % maxNum
+    derivedUserCrushSalt = derivedUserCrushSalt * letter.charCodeAt(0) % maxNum
   })
   crush.split('').forEach(letter => {
-    derivedUserCrushSalt = derivedUserCrushSalt * letter.charCodeAt() % maxNum
+    derivedUserCrushSalt = derivedUserCrushSalt * letter.charCodeAt(0) % maxNum
+  })
+  const userCrushSalt = await sha256(String(derivedUserCrushSalt))
+  const hashedUserCrush = await argon2id( {
+    password: userCrush,
+    salt: userCrushSalt,
+    parallelism: 1,
+    iterations: 256,
+    memorySize: 512,
+    hashLength: 32,
+    outputType: 'encoded',
+  })
+  const hashedCrushUser = await argon2id( {
+    password: crushUser,
+    salt: userCrushSalt,
+    parallelism: 1,
+    iterations: 256,
+    memorySize: 512,
+    hashLength: 32,
+    outputType: 'encoded',
   })
   // How to hash userCrush and crushUser
   // Idea 1: Hash like passwords (with salt)
@@ -51,6 +70,7 @@ export async function POST(request: NextRequest) {
   //  but in the event of a DB breach, no usernames are given away, and therefore no values can be broken!
 
   const DB = getRequestContext().env.DB
+  var result = await DB.prepare("INSERT INTO Users (username, password, user_crush, crush_user) VALUES (?1, ?2, ?3, ?4)").bind(usernameEncrypted, hashedPassword, hashedUserCrush, hashedCrushUser).run()
 
-  return new Response("TODO")
+  return new Response(String(result.success))
 }
