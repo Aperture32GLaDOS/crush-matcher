@@ -54,6 +54,15 @@ export default function Home() {
           <NavbarItem>
             <Link href="/check" color="foreground">Check Crush</Link>
           </NavbarItem>
+          <NavbarItem>
+            <Link href="/check" color="foreground">Logout</Link>
+          </NavbarItem>
+          <NavbarItem>
+            {
+              // TODO: this link as a button, which will send a POST to /api/delete (or something similar)
+            }
+            <Link href="#" color="danger">Delete Account</Link>
+          </NavbarItem>
           </div>
         }
       </NavbarContent>
