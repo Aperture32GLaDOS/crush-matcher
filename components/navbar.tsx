@@ -63,9 +63,6 @@ export default function GlobalNavbar({ pageTitle, isLoggedIn } : {pageTitle: str
             <Link href="/" color="foreground" onClick={logout}>Logout</Link>
           </NavbarItem>
           <NavbarItem>
-            {
-              // TODO: this link as a button, which will send a POST to /api/delete (or something similar)
-            }
             <Link href="/" color="danger" onClick={deleteAccount}>Delete Account</Link>
           </NavbarItem>
           </>

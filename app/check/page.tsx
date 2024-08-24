@@ -46,7 +46,7 @@ export default function Check() {
       body: formData,
     })
     if (response.status == 200) {
-      // TODO: display to the user that a match is found
+      alert("You lucky thing! Match found!")
     }
   }
   const loggedIn = useIsLoggedIn()
