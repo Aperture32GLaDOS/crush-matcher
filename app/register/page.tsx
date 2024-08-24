@@ -84,10 +84,15 @@ export default function Register() {
       method: 'POST',
       body: toSend,
     })
- 
-    // Handle response if necessary
-    const data = await response.json()
-    // ...
+    // If the login has worked,
+    if (response.status == 200) {
+      // Set session storage
+      window.sessionStorage.setItem("username", usernameSecretlyHashed)
+      window.sessionStorage.setItem("userCrush", hashedUserCrush)
+      window.sessionStorage.setItem("crushUser", hashedCrushUser)
+    }
+    // Redirect
+    window.location.href = "/"
   }
 
   return (
