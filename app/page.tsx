@@ -39,18 +39,18 @@ export default function Home() {
         </NavbarItem>
         { // Only show if not logged in
           !loggedIn && 
-          <div>
+          <>
           <NavbarItem>
             <Link href="/register" color="foreground">Register</Link>
           </NavbarItem>
           <NavbarItem>
             <Link href="/login" color="foreground">Login</Link>
           </NavbarItem>
-          </div>
+          </>
         }
         { // Only show if logged in
           loggedIn && 
-          <div>
+          <>
           <NavbarItem>
             <Link href="/check" color="foreground">Check Crush</Link>
           </NavbarItem>
@@ -63,7 +63,7 @@ export default function Home() {
             }
             <Link href="#" color="danger">Delete Account</Link>
           </NavbarItem>
-          </div>
+          </>
         }
       </NavbarContent>
     </Navbar>
