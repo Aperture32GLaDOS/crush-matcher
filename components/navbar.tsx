@@ -2,6 +2,7 @@
 
 import {Link} from "@nextui-org/link";
 import { Image } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import {
   Navbar, 
   NavbarBrand, 
@@ -26,6 +27,7 @@ async function deleteAccount() {
   })
   if (results.status == 200) {
     window.sessionStorage.clear()
+    window.location.href = "/"
   }
 }
 
@@ -67,7 +69,7 @@ export default function GlobalNavbar({ pageTitle, isLoggedIn } : {pageTitle: str
             <Link href="/" color="foreground" onClick={logout}>Logout</Link>
           </NavbarItem>
           <NavbarItem>
-            <Link href="/" color="danger" onClick={deleteAccount}>Delete Account</Link>
+            <Button color="danger" onClick={deleteAccount}>Delete Account</Button>
           </NavbarItem>
           </>
         }
