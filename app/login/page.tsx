@@ -46,6 +46,7 @@ export default function Register() {
     if (response.status == 200) {
       window.sessionStorage.setItem("username", usernameSecretlyHashed)
       window.sessionStorage.setItem("usernameUnsecure", usernameHash)
+      window.location.href = "/"
     }
   }
 
