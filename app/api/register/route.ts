@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   if (usernameExists) {
     return new Response("", {status: 409})
   }
-  var result = (await DB.prepare("INSERT INTO Usernames (username) VALUES (?!)").bind(username).run()).success
+  var result = (await DB.prepare("INSERT INTO Usernames (username) VALUES (?1)").bind(username).run()).success
   result = result && (await DB.prepare("INSERT INTO Users (username, password, user_crush, crush_user) VALUES (?1, ?2, ?3, ?4)").bind(usernameSecret, password, userCrush, crushUser).run()).success
 
   if (result) {
