@@ -88,8 +88,6 @@ export default function Register() {
     if (response.status == 200) {
       // Set session storage
       window.sessionStorage.setItem("username", usernameSecretlyHashed)
-      window.sessionStorage.setItem("userCrush", hashedUserCrush)
-      window.sessionStorage.setItem("crushUser", hashedCrushUser)
       window.sessionStorage.setItem("usernameUnsecure", usernameHashed)
     }
     // Redirect
