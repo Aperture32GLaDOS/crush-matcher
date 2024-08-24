@@ -6,6 +6,26 @@ import {
   NavbarItem
 } from "@nextui-org/navbar";
 
+function logout() {
+  window.sessionStorage.clear()
+}
+
+async function deleteAccount() {
+  if (!confirm("Are you sure you want to delete your account? This cannot be undone")) {
+    return;
+  }
+  var formData = new FormData();
+  formData.set("username", window.sessionStorage.getItem("username") as string)
+  formData.set("usernameUnsecure", window.sessionStorage.getItem("usernameUnsecure") as string)
+  const results = await fetch('/api/delete', {
+    method: 'POST',
+    body: formData
+  })
+  if (results.status == 200) {
+    window.sessionStorage.clear()
+  }
+}
+
 
 export default function GlobalNavbar({ pageTitle, isLoggedIn } : {pageTitle: string, isLoggedIn: string} ) {
   const loggedIn = isLoggedIn == "true"
@@ -40,13 +60,13 @@ export default function GlobalNavbar({ pageTitle, isLoggedIn } : {pageTitle: str
             { (pageTitle != "check") && <Link href="/check" color="foreground">Check Crush</Link>}
           </NavbarItem>
           <NavbarItem>
-            <Link href="/check" color="foreground">Logout</Link>
+            <Link href="/" color="foreground" onClick={logout}>Logout</Link>
           </NavbarItem>
           <NavbarItem>
             {
               // TODO: this link as a button, which will send a POST to /api/delete (or something similar)
             }
-            <Link href="#" color="danger">Delete Account</Link>
+            <Link href="/" color="danger" onClick={deleteAccount}>Delete Account</Link>
           </NavbarItem>
           </>
         }
