@@ -27,7 +27,8 @@ export default function GlobalNavbar({ pageTitle, isLoggedIn } : {pageTitle: str
             { (pageTitle != "register") && <Link href="/register" color="foreground">Register</Link>}
           </NavbarItem>
           <NavbarItem>
-            <Link href="/login" color="foreground">Login</Link>
+            { (pageTitle == "login") && <Link href="#">Login</Link>}
+            { (pageTitle != "login") && <Link href="/login" color="foreground">Login</Link>}
           </NavbarItem>
           </>
         }
