@@ -38,7 +38,7 @@ export default function Register() {
     toSend.set('password', hashedPassword)
     toSend.set("cf-turnstile-response", formData.get("cf-turnstile-response") as string)
 
-    const response = await fetch('/api/register', {
+    const response = await fetch('/api/login', {
       method: 'POST',
       body: toSend,
     })
