@@ -57,7 +57,7 @@ export default function Register() {
     <form onSubmit={onSubmit} className="flex w-full flex-wrap md:flex-nowrap gap-4">
       <Input type="text" name="username" label="Username"/>
       <Input type="password" name="password" label="Password"/>
-      <Input type="password" name="Secret" label="Secret"/>
+      <Input type="password" name="secret" label="Secret"/>
       <div className="cf-turnstile" data-sitekey="0x4AAAAAAAh_Zm3Jr3Wm49_X"></div>
       <Button type="submit" color="primary">Log In</Button>
     </form>
