@@ -1,4 +1,5 @@
 import {Link} from "@nextui-org/link";
+import { Image } from "@nextui-org/react";
 import {
   Navbar, 
   NavbarBrand, 
@@ -32,6 +33,7 @@ export default function GlobalNavbar({ pageTitle, isLoggedIn } : {pageTitle: str
   return (
     <Navbar>
       <NavbarBrand>
+        <Link href="https://github.com/Aperture32GLaDOS/crush-matcher" className="pr-4"><Image height={50} width={50} className="fill" src="github-mark.svg"/></Link>
         <p className="font-bold text-inherit">Crush Matcher</p>
       </NavbarBrand>
       <NavbarContent justify="end">
