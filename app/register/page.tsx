@@ -109,7 +109,7 @@ export default function Register() {
       <Button type="submit" color="primary">Submit</Button>
     </form>
     </main>
-    <p>Please keep your secret <b>secret!</b>Quite a lot of security is riding on it, so make it long and don't go sharing it with people.</p>
+    <p>Please keep your secret <b>secret!</b>Quite a lot of security is riding on it, so make it long and don&apos;t go sharing it with people.</p>
     </>
   )
 }
