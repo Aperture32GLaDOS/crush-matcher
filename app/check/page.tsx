@@ -48,6 +48,9 @@ export default function Check() {
     if (response.status == 200) {
       alert("You lucky thing! Match found!")
     }
+    else {
+      alert("L Rizz; no match found")
+    }
   }
   const loggedIn = useIsLoggedIn()
   return (

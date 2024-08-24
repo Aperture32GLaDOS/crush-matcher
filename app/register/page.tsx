@@ -13,8 +13,8 @@ export default function Register() {
     event.preventDefault()
  
     var formData = new FormData(event.currentTarget)
-    const username = formData.get("username") as string
-    const crush = formData.get("crush") as string
+    const username = (formData.get("username") as string).trim()
+    const crush = (formData.get("crush") as string).trim()
     const password = formData.get("password") as string
     const secret = formData.get("secret") as string
     const userCrush = username! + crush!
@@ -91,6 +91,12 @@ export default function Register() {
       // Redirect
       window.location.href = "/"
     }
+    else if (response.status == 401 || response.status == 409) {
+      alert("A user with that username already exists!")
+    }
+    else {
+      alert("An unknown error occured! Please refresh the page and try again")
+    }
   }
 
   return (
@@ -106,7 +112,7 @@ export default function Register() {
       <Button type="submit" color="primary">Submit</Button>
     </form>
     </main>
-    <p>Please keep your secret <b>secret!</b>Quite a lot of security is riding on it, so make it long and don&apos;t go sharing it with people.</p>
+    <p>Please keep your secret <b>secret!</b>Quite a lot of security is riding on it, so make it long and don&apos;t go sharing it with people. Please make sure that the secret is also long, registration will not working until above 8 characters</p>
     </>
   )
 }
