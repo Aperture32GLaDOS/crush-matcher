@@ -10,6 +10,7 @@ import {
 import { useRef, useState, useEffect, FormEvent } from 'react'
 import { Divider } from "@nextui-org/divider"
 import {Button} from "@nextui-org/button";
+import GlobalNavbar from "@/components/navbar";
 
 function isLoggedIn() {
   var loggedIn = window.sessionStorage.getItem("username") != null
@@ -51,36 +52,7 @@ export default function Check() {
   const loggedIn = useIsLoggedIn()
   return (
     <main>
-    {
-      // TODO: make the navbar all one component
-    }
-    <Navbar>
-      <NavbarBrand>
-        <p className="font-bold text-inherit">Crush Matcher</p>
-      </NavbarBrand>
-      <NavbarContent justify="end">
-        <NavbarItem>
-          <Link href="/" color="foreground">Home Page</Link>
-        </NavbarItem>
-        { // Only show if logged in
-          loggedIn && 
-          <>
-          <NavbarItem>
-            <Link href="/check">Check Crush</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link href="/check" color="foreground">Logout</Link>
-          </NavbarItem>
-          <NavbarItem>
-            {
-              // TODO: this link as a button, which will send a POST to /api/delete (or something similar)
-            }
-            <Link href="#" color="danger">Delete Account</Link>
-          </NavbarItem>
-          </>
-        }
-      </NavbarContent>
-    </Navbar>
+    <GlobalNavbar pageTitle="check" isLoggedIn={loggedIn.toString()}/>
     <Divider className="my-4"/>
     <form onSubmit={onSubmit}>
       <Button type="submit" color="primary">Check</Button>
