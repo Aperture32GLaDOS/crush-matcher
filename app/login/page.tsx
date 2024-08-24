@@ -23,7 +23,7 @@ export default function Register() {
 
   return (
     <main>
-    <GlobalNavbar pageTitle="register" isLoggedIn={"false"} />
+    <GlobalNavbar pageTitle="login" isLoggedIn={"false"} />
     <Divider className="my-4"/>
     <form onSubmit={onSubmit} className="flex w-full flex-wrap md:flex-nowrap gap-4">
       <Input type="text" name="username" label="Username"/>
