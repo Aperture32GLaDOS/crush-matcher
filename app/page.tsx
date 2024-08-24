@@ -7,10 +7,26 @@ import {
   NavbarContent, 
   NavbarItem
 } from "@nextui-org/navbar";
+import { useRef, useState, useEffect } from 'react'
 import { Divider } from "@nextui-org/divider"
 
+function isLoggedIn() {
+  return window.sessionStorage.getItem("username") != null
+}
+
+function useIsLoggedIn() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const retrieved = useRef(false)
+  useEffect(() => {
+    if (retrieved.current) return;
+    retrieved.current = true;
+    setLoggedIn(isLoggedIn())
+  }, [])
+  return loggedIn
+}
+
 export default function Home() {
-  const isLoggedIn = (window.sessionStorage.getItem("username") != null)
+  const loggedIn = useIsLoggedIn()
   return (
     <main>
     <Navbar>
@@ -22,7 +38,7 @@ export default function Home() {
           <Link href="#">Home Page</Link>
         </NavbarItem>
         { // Only show if not logged in
-          !isLoggedIn && 
+          !loggedIn && 
           <div>
           <NavbarItem>
             <Link href="/register" color="foreground">Register</Link>
@@ -33,7 +49,7 @@ export default function Home() {
           </div>
         }
         { // Only show if logged in
-          isLoggedIn && 
+          loggedIn && 
           <div>
           <NavbarItem>
             <Link href="/check" color="foreground">Check Crush</Link>
