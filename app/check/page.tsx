@@ -36,6 +36,7 @@ export default function Check() {
     event.preventDefault()
 
     var formData = new FormData()
+    formData.set("username", window.sessionStorage.getItem("username")!)
     formData.set("userCrush", window.sessionStorage.getItem("userCrush")!)
     formData.set("crushUser", window.sessionStorage.getItem("crushUser")!)
 

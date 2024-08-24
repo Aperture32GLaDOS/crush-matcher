@@ -90,6 +90,7 @@ export default function Register() {
       window.sessionStorage.setItem("username", usernameSecretlyHashed)
       window.sessionStorage.setItem("userCrush", hashedUserCrush)
       window.sessionStorage.setItem("crushUser", hashedCrushUser)
+      window.sessionStorage.setItem("usernameUnsecure", usernameHashed)
     }
     // Redirect
     window.location.href = "/"
