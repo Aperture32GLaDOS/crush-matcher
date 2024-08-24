@@ -19,8 +19,8 @@ export default function Home() {
         <NavbarItem>
           <Link href="#">Home Page</Link>
         </NavbarItem>
-        // Only show if not logged in
-        { !isLoggedIn && 
+        { // Only show if not logged in
+          !isLoggedIn && 
           <div>
           <NavbarItem>
             <Link href="/register" color="foreground">Register</Link>
@@ -30,8 +30,7 @@ export default function Home() {
           </NavbarItem>
           </div>
         }
-        // Only show if logged in
-        {
+        { // Only show if logged in
           isLoggedIn && 
           <div>
           <NavbarItem>
