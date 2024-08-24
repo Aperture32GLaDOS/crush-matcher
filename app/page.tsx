@@ -3,14 +3,12 @@ import {
   Navbar, 
   NavbarBrand, 
   NavbarContent, 
-  NavbarItem, 
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem
+  NavbarItem
 } from "@nextui-org/navbar";
 import { Divider } from "@nextui-org/divider"
 
 export default function Home() {
+  const isLoggedIn = (window.sessionStorage.getItem("username") != null)
   return (
     <main>
     <Navbar>
@@ -21,12 +19,26 @@ export default function Home() {
         <NavbarItem>
           <Link href="#">Home Page</Link>
         </NavbarItem>
-        <NavbarItem>
-          <Link href="/register" color="foreground">Register</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="/login" color="foreground">Login</Link>
-        </NavbarItem>
+        // Only show if not logged in
+        { !isLoggedIn && 
+          <div>
+          <NavbarItem>
+            <Link href="/register" color="foreground">Register</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link href="/login" color="foreground">Login</Link>
+          </NavbarItem>
+          </div>
+        }
+        // Only show if logged in
+        {
+          isLoggedIn && 
+          <div>
+          <NavbarItem>
+            <Link href="/check" color="foreground">Check Crush</Link>
+          </NavbarItem>
+          </div>
+        }
       </NavbarContent>
     </Navbar>
     <Divider className="my-4"/>

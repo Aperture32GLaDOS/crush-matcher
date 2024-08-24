@@ -24,6 +24,10 @@ export default function Register() {
     const secret = formData.get("secret") as string
     const userCrush = username! + crush!
     const crushUser = crush! + username!
+    // The username and crush name cannot be the same
+    if (username == crush) {
+      return;
+    }
     const maxNum = (2 ** 64) - 1
     const usernameSecretlyHashed = await argon2id({
       password: username,
