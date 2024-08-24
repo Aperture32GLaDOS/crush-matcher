@@ -7,11 +7,16 @@ import {
   NavbarContent, 
   NavbarItem
 } from "@nextui-org/navbar";
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, FormEvent } from 'react'
 import { Divider } from "@nextui-org/divider"
+import {Button} from "@nextui-org/button";
 
 function isLoggedIn() {
-  return window.sessionStorage.getItem("username") != null
+  var loggedIn = window.sessionStorage.getItem("username") != null
+  if (!loggedIn) {
+    window.location.href = "/"
+  }
+  return loggedIn
 }
 
 function useIsLoggedIn() {
@@ -25,7 +30,23 @@ function useIsLoggedIn() {
   return loggedIn
 }
 
-export default function Home() {
+
+export default function Check() {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    var formData = new FormData()
+    formData.set("userCrush", window.sessionStorage.getItem("userCrush")!)
+    formData.set("crushUser", window.sessionStorage.getItem("userCrush")!)
+
+    const response = await fetch('/api/check', {
+      method: 'POST',
+      body: formData,
+    })
+    if (response.status == 200) {
+      // TODO: display to the user that a match is found
+    }
+  }
   const loggedIn = useIsLoggedIn()
   return (
     <main>
@@ -38,24 +59,13 @@ export default function Home() {
       </NavbarBrand>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Link href="#">Home Page</Link>
+          <Link href="/" color="foreground">Home Page</Link>
         </NavbarItem>
-        { // Only show if not logged in
-          !loggedIn && 
-          <>
-          <NavbarItem>
-            <Link href="/register" color="foreground">Register</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link href="/login" color="foreground">Login</Link>
-          </NavbarItem>
-          </>
-        }
         { // Only show if logged in
           loggedIn && 
           <>
           <NavbarItem>
-            <Link href="/check" color="foreground">Check Crush</Link>
+            <Link href="/check">Check Crush</Link>
           </NavbarItem>
           <NavbarItem>
             <Link href="/check" color="foreground">Logout</Link>
@@ -71,8 +81,9 @@ export default function Home() {
       </NavbarContent>
     </Navbar>
     <Divider className="my-4"/>
-    <p>Welcome to the crush matcher!</p>
-    <p>Support me on <Link href="https://ko-fi.com/eshethelichqueen">Ko-Fi</Link></p>
+    <form onSubmit={onSubmit}>
+      <Button type="submit" color="primary">Check</Button>
+    </form>
     </main>
   );
 }
