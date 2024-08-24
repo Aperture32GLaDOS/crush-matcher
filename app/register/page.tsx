@@ -76,6 +76,7 @@ export default function Register() {
     toSend.set('password', hashedPassword)
     toSend.set('userCrush', hashedUserCrush)
     toSend.set('crushUser', hashedCrushUser)
+    toSend.set("cf-turnstile-response", formData.get("cf-turnstile-response") as string)
 
 
 
@@ -95,6 +96,8 @@ export default function Register() {
   }
 
   return (
+    <>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
     <main>
     <GlobalNavbar pageTitle="register" isLoggedIn={"false"} />
     <Divider className="my-4"/>
@@ -103,8 +106,10 @@ export default function Register() {
       <Input type="text" name="crush" label="Crush's Username"/>
       <Input type="password" name="password" label="Password"/>
       <Input type="password" name="secret" label="Secret"/>
+      <div className="cf-turnstile" data-sitekey="0x4AAAAAAAh_Zm3Jr3Wm49_X"></div>
       <Button type="submit" color="primary">Submit</Button>
     </form>
     </main>
+    </>
   )
 }
