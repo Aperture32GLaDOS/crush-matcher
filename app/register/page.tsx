@@ -5,17 +5,13 @@ import {
   Navbar, 
   NavbarBrand, 
   NavbarContent, 
-  NavbarItem, 
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem
+  NavbarItem,
 } from "@nextui-org/navbar";
 import { Divider } from "@nextui-org/divider"
 import {Input} from "@nextui-org/input";
-import {Button, ButtonGroup} from "@nextui-org/button";
+import {Button} from "@nextui-org/button";
 import { FormEvent } from 'react'
 import { argon2id, sha256 } from 'hash-wasm'
-import { pki, random } from 'node-forge'
 
 export default function Register() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
