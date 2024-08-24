@@ -1,19 +1,10 @@
 'use client';
 
-import {Link} from "@nextui-org/link";
-import {
-  Navbar, 
-  NavbarBrand, 
-  NavbarContent, 
-  NavbarItem, 
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem
-} from "@nextui-org/navbar";
 import { Divider } from "@nextui-org/divider"
 import {Input} from "@nextui-org/input";
-import {Button, ButtonGroup} from "@nextui-org/button";
+import {Button } from "@nextui-org/button";
 import { FormEvent } from 'react'
+import GlobalNavbar from "@/components/navbar";
 
 export default function Register() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -32,22 +23,7 @@ export default function Register() {
 
   return (
     <main>
-    <Navbar>
-      <NavbarBrand>
-        <p className="font-bold text-inherit">Crush Matcher</p>
-      </NavbarBrand>
-      <NavbarContent justify="end">
-        <NavbarItem>
-          <Link href="/" color="foreground">Home Page</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="/register" color="foreground">Register</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="/login">Login</Link>
-        </NavbarItem>
-      </NavbarContent>
-    </Navbar>
+    <GlobalNavbar pageTitle="register" isLoggedIn={"false"} />
     <Divider className="my-4"/>
     <form onSubmit={onSubmit} className="flex w-full flex-wrap md:flex-nowrap gap-4">
       <Input type="text" name="username" label="Username"/>
