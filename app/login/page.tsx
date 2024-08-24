@@ -36,7 +36,6 @@ export default function Register() {
     const toSend = new FormData()
     toSend.set('usernameSecret', usernameSecretlyHashed)
     toSend.set('password', hashedPassword)
-    toSend.set("cf-turnstile-response", formData.get("cf-turnstile-response") as string)
 
     const response = await fetch('/api/login', {
       method: 'POST',
@@ -62,8 +61,7 @@ export default function Register() {
         <Input type="password" name="secret" label="Secret"/>
       </div>
       <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-        <div className="cf-turnstile" data-sitekey="0x4AAAAAAAh_Zm3Jr3Wm49_X"></div>
-        <Button type="submit" color="primary">Log In</Button>
+      <Button type="submit" color="primary">Log In</Button>
       </div>
     </form>
     </main>

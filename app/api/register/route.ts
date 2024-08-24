@@ -7,24 +7,6 @@ export const runtime = 'edge'
 export async function POST(request: NextRequest) {
   const DB = getRequestContext().env.DB
   const formData = await request.formData()
-  // Verify with cloudflare turnstile
-  const token = formData.get("cf-turnstile-response")!
-  const SECRET_KEY = getRequestContext().env.TURNSTILE_SECRET_KEY
-  // Validate the token by calling the `/siteverify` API.
-  let tokenData = new FormData();
-  tokenData.append('secret', SECRET_KEY);
-  tokenData.append('response', token);
-  const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-  const tokenResult = await fetch(url, {
-      body: tokenData,
-      method: 'POST',
-  });
-
-  const outcome: any = await tokenResult.json();
-
-  if (!(outcome.success)) {
-      return new Response('The provided Turnstile token was not valid!', { status: 401 });
-  }
   const usernameSecret = formData.get("usernameSecret") as string
   const username = formData.get("username") as string
   const userCrush = formData.get("userCrush") as string
