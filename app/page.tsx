@@ -26,7 +26,7 @@ export default function Home() {
     <main>
     <GlobalNavbar pageTitle="home" isLoggedIn={loggedIn.toString()} />
     <Divider className="my-4"/>
-    <p>Welcome to the crush matcher!</p>
+    <p>Welcome to the crush matcher! This funky little site will figure out if your crush is interested in you, but <i>without revealing that you&apos;re into them.</i> If you wanna know more about how it works, go <Link href="/faq">here</Link></p>
     <p>Support me on <Link href="https://ko-fi.com/eshethelichqueen">Ko-Fi</Link></p>
     </main>
   );

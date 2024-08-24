@@ -54,12 +54,16 @@ export default function Register() {
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
     <GlobalNavbar pageTitle="login" isLoggedIn={"false"} />
     <Divider className="my-4"/>
-    <form onSubmit={onSubmit} className="flex w-full flex-wrap md:flex-nowrap gap-4">
-      <Input type="text" name="username" label="Username"/>
-      <Input type="password" name="password" label="Password"/>
-      <Input type="password" name="secret" label="Secret"/>
-      <div className="cf-turnstile" data-sitekey="0x4AAAAAAAh_Zm3Jr3Wm49_X"></div>
-      <Button type="submit" color="primary">Log In</Button>
+    <form onSubmit={onSubmit} className="flex w-full flex-col flex-wrap md:flex-nowrap gap-4">
+      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+        <Input type="text" name="username" label="Username"/>
+        <Input type="password" name="password" label="Password"/>
+        <Input type="password" name="secret" label="Secret"/>
+      </div>
+      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+        <div className="cf-turnstile" data-sitekey="0x4AAAAAAAh_Zm3Jr3Wm49_X"></div>
+        <Button type="submit" color="primary">Log In</Button>
+      </div>
     </form>
     </main>
   )
