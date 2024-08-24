@@ -37,7 +37,7 @@ export default function Check() {
 
     var formData = new FormData()
     formData.set("userCrush", window.sessionStorage.getItem("userCrush")!)
-    formData.set("crushUser", window.sessionStorage.getItem("userCrush")!)
+    formData.set("crushUser", window.sessionStorage.getItem("crushUser")!)
 
     const response = await fetch('/api/check', {
       method: 'POST',
