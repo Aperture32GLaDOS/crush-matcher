@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
   const outcome: any = await tokenResult.json();
 
-  if (!outcome.success) {
+  if (!(outcome.success)) {
       return new Response('The provided Turnstile token was not valid!', { status: 401 });
   }
   const usernameSecret = formData.get("usernameSecret") as string
